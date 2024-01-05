@@ -4,6 +4,7 @@ const output = document.getElementById('output');
 function update() {
   const s = document.createElement('script');
   s.setAttribute('type','text/tikz');
+  s.setAttribute('data-show-console','true');
   s.textContent = `
 ${code_input.value}
   `;
