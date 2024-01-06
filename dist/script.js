@@ -15,7 +15,7 @@ ${code_input.value}
 let debounce_update = null;
 let debounce_do = false;
 
-code_input.addEventListener('keyup',function() {
+code_input.addEventListener('input',function() {
   if(debounce_update) {
     debounce_do = true;
     return;
