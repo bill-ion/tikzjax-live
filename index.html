@@ -13,27 +13,51 @@
 <h2>TikZJax-live demo</h2>
 <section id="editor">
 <textarea id="code">
-\usepackage{chemfig}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+
 \begin{document}
+\begin{tikzpicture}
+\node (I)    at ( 4,0)   {I};
+\node (II)   at (-4,0)   {II};
+\node (III)  at (0, 2.5) {III};
+\node (IV)   at (0,-2.5) {IV};
 
-\definesubmol\fragment1{
-    (-[:#1,0.85,,,draw=none]
-    -[::126]-[::-54](=_#(2pt,2pt)[::180])
-    -[::-70](-[::-56.2,1.07]=^#(2pt,2pt)[::180,1.07])
-    -[::110,0.6](-[::-148,0.60](=^[::180,0.35])-[::-18,1.1])
-    -[::50,1.1](-[::18,0.60]=_[::180,0.35])
-    -[::50,0.6]
-    -[::110])
-    }
+\path  % Four corners of left diamond
+  (II) +(90:4)  coordinate[label=90:$i^+$]  (IItop)
+       +(-90:4) coordinate[label=-90:$i^-$] (IIbot)
+       +(0:4)   coordinate                  (IIright)
+       +(180:4) coordinate[label=180:$i^0$] (IIleft)
+       ;
+\draw (IIleft) -- 
+          node[midway, above left]    {$\cal{J}^+$}
+          node[midway, below, sloped] {$\bar{u}=\infty$}
+      (IItop) --
+          node[midway, below, sloped] {$\bar{u}=0$}
+      (IIright) -- 
+          node[midway, below, sloped] {$\bar{u}=0$}
+      (IIbot) --
+          node[midway, above, sloped] {$\bar{v}=-\infty$}
+          node[midway, below left]    {$\cal{J}^-$}    
+      (IIleft) -- cycle;
 
-\chemfig{
-!\fragment{18}
-!\fragment{90}
-!\fragment{162}
-!\fragment{234}
-!\fragment{306}
-}
+\path % Four conners of the right diamond (no labels this time)
+   (I) +(90:4)  coordinate (Itop)
+       +(-90:4) coordinate (Ibot)
+       +(180:4) coordinate (Ileft)
+       +(0:4)   coordinate (Iright)
+       ;
+% No text this time in the next diagram
+\draw  (Ileft) -- (Itop) -- (Iright) -- (Ibot) -- (Ileft) -- cycle;
 
+% Squiggly lines
+\draw[decorate,decoration=zigzag] (IItop) -- (Itop)
+      node[midway, above, inner sep=2mm] {$r=0$};
+
+\draw[decorate,decoration=zigzag] (IIbot) -- (Ibot)
+      node[midway, below, inner sep=2mm] {$r=0$};
+
+\end{tikzpicture}
 \end{document}
 </textarea>
 <div id="output"></div>
@@ -58,7 +82,7 @@ In addition, <a href="https://tikzjax-demo.glitch.me/" target="_blank">christian
 
 <h2>TikZ examples</h2>
 <ul>
-<li><a href="https://texample.net/tikz/examples/" target="_blank">TikZ and PGF examples</a> - Provides a wealth of TikZ examples. </li>
+<li><a href="https://texample.net/tikz/examples/" target="_blank">TikZ and PGF examples</a> - A official website providing a wealth of TikZ examples. </li>
 </ul>
 </body>
 </html>
